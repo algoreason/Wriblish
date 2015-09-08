@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{topic.topic_name}} - Posts</title>
+{% load staticfiles %}
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- The Ones from google (the real deal)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.red-blue.min.css" />  
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+  <style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+.mybrand{
+        	font-size:180%; padding-top:20%;
+        }
+        
+.mycard{
+  margin-left: 15%;
+}
+.myfooter{
+  position: relative;
+  bottom:0%;
+  width: 101%;
+}
+}
+.row{
+			width: 100%;
+}
+.img-responsive{
+  max-height: 300px;
+}
+.img{
+  vertical-align: bottom;
+}
+@media screen and (max-width:768px){
+	.myrow1{
+		margin-left: 1%;
+
+	}
+  .img-responsive{
+    padding-left: 30%;
+  }
+  .myQ{
+  margin-left: 33%
+}
+.mychoice{
+  margin-left: 30%
+}
+.myQues{
+  margin-left: 7%;
+	}
+}
+.navbar{
+	margin-bottom: 0;
+}
+
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+    .material-icons.purple500 { color: #9C27B0 }
+
+.material-icons.md-48 { font-size: 48px; }
+
+            body{
+            	background-image: url("grey.png");
+
+        }
+        .link-undecorated{
+        	text-decoration: none;
+        }
+        .row1{
+          margin-top: 5%;
+        }
+        .row3{
+          margin-top: 2%;
+        }
+        .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background:
+      url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+  }
+  </style>
+  </head>
+  <body>
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="#"><div>Wribler</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{%url 'cms:home' %}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="{%url 'cms:addPostInit'%}"><i class="material-icons green500">add</i><div> Add</div></a></li> 
+        {%if not username%}
+        <li><a href="{%url 'cms:registerInit'%}"><i class="material-icons red500">content_paste</i> <div>Register</div></a></li> 
+        {%endif%}
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+    {%if username%}
+     
+    <li class="dropdown">
+    <a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>
+    Hi {{ username.first_name }}
+    </div>
+    </a>
+    </li>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+        for="demo-menu-lower-right">
+      <li class="mdl-menu__item"><a href="{%url 'cms:profileView'%}" style="text-decoration:none; color:black;">My Profile</a></li>
+      <li class="mdl-menu__item"><a href="{%url 'cms:logout'%}" style="text-decoration:none; color:black">Logout</a></li>
+    </ul>
+      
+      {%else%}
+      <a href="{%url 'cms:loginInitialization' %}"><i class="material-icons"></i><div> Hi Guest (Login) </div></a>
+      {%endif%}
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+   
+
+
+<div class="jumbotron" style="background-color:#4CAF50; padding:0%; margin-bottom:0%;">
+	<div class="row">
+	   <div class="col-sm-2"></div>
+	   <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-10">
+          <h1 style="color:white;">{{topic.topic_name}}</h1>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+          <ul type="disc">
+            <h4 style="color:white;"><li>{{topic.desc}}</li></h4>
+          </ul>
+        </div>
+        
+      </div>
+      </div>
+    
+    <div class="col-sm-2">
+    </div>
+    
+    </div>
+ </div>
+     
+  <div class="container">
+    
+    <div id="tech_skills" class="row" style="margin-top:3%">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        {% if posts%}
+        {%for posting in posts %}
+        <div class="panel panel-default">
+
+          <div class="panel-heading" style="background-color:#4CAF50; text-align:center; color:white">
+            {{posting.heading}}
+          </div>
+          
+            
+              <div class="panel-body">
+          <div class="list-group" style="margin-bottom:0%">
+              <a class="list-group-item">Date : {{posting.published_date}}</a>
+              <a class="list-group-item">Authored By : {{posting.author}}</a>
+              
+            </div>
+          </div>
+              <a class="list-group-item">{{posting.text}}</a>
+        
+        </div>
+        {% endfor %}
+        {% else %}
+        There Are no posts here yet.
+        {% endif %}
+    </div>
+    <div class="col-sm-1"></div>
+    </div>
+</div>
+  	
+  <div style="width:101%;">
+    <footer class="mdl-mini-footer myfooter" style="margin-top:4%;">
+      <div class="mdl-mini-footer--left-section">
+      <div class="mdl-logo" style="padding-left:3%">Designed and developed by <a href="#" target="_blank">Sharad Dargan</a></div>
+      <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</div>
+
+
+<script type="text/javascript">
+  var $root = $('html, body');
+$('a').click(function() {
+    $root.animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 750);
+    return false;
+});
+
+</script>
+	</body>
+	</html>

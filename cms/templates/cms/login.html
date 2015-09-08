@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home - Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- The Ones from google (the real deal)-->
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style type="text/css">
+@media screen and (min-width:768px){
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+}
+.navbar{
+	margin-bottom: 0;
+}
+body{
+	background-color: #E8EAF6;
+}
+.material-icons.orange600 { color: #FB8C00; }
+    .material-icons.green500 { color: #4CAF50; }
+    .material-icons.blue500 { color: #03A9F4 }
+    .material-icons.red500 { color: #F44336 }
+.material-icons.md-48 { font-size: 48px; }
+.login-button-custom{
+  margin-top: 8%;
+  margin-left: 40%
+}
+</style>
+<script type="text/javascript">
+  function validate(){
+    
+    if(document.getElementById('uname').value==""){
+     $('#modal-body-content').text("Please enter a username.");
+      $('#myModal').modal('toggle');
+      return false; 
+    }
+    else if(document.getElementById('pwd').value==""){
+     $('#modal-body-content').text("Please enter a password.");
+      $('#myModal').modal('toggle');
+      return false; 
+    }
+    else if(!document.getElementById('checkbox-1').checked){
+      $('#modal-body-content').text("Please check the check box, to agree to the terms and conditions.");
+      $('#myModal').modal('toggle');
+      return false;
+    }
+    return true;
+  }
+</script>
+</head>
+<body>
+
+
+  
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand mybrand" href="{%url 'cms:home' %}"><div>Wriblish</div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'cms:home'%}"><i class="material-icons orange600">dashboard</i> <div>All Categories</div></a></li>
+        
+        <li><a href="{% url 'cms:addPostInit'%}"><i class="material-icons green500">add</i><div> Add Article </div></a></li> 
+        <li><a href="{%url 'cms:registerInit'%}"><i class="material-icons red500">content_paste</i> <div>Register</div></a></li> 
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+    {%if username%}
+     
+    <li class="dropdown">
+    <a class="dropdown-toggle" id="demo-menu-lower-right" data-toggle="dropdown" href="#"><i class="material-icons blue500">face</i><div>
+    Hi {{ username.first_name }}
+    </div>
+    </a>
+    </li>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+        for="demo-menu-lower-right">
+      <li class="mdl-menu__item"><a href="#" style="text-decoration:none; color:black;">My Profile</a></li>
+      <li class="mdl-menu__item"><a href="{%url 'cms:logout'%}" style="text-decoration:none; color:black">Logout</a></li>
+    </ul>
+      
+      {%else%}
+      <a href="{%url 'cms:loginInitialization' %}"><i class="material-icons"></i><div> Hi Guest (Login) </div></a>
+      {%endif%}
+      </ul>
+    </div>
+  </div>
+  
+</nav>
+<div class="jumbotron" style="background-color:#3F51B5">
+	<div class="row">
+	<div class="col-sm-3"></div>
+	<div class="col-sm-6">
+    <h1 style="color:#E8EAF6; margin-left:2%;">Wriblish!</h1>
+    <p style="color:#C5CAE9; margin-left:15%;">Write and Publish!</p>      
+    </div>
+    
+    <div class="col-sm-3"></div>
+    </div>
+ </div>
+<div class="container-fluid">
+<div class="row">
+  	<div class="col-sm-3"></div>
+  	<div class="col-sm-6">
+    {% if error_message %}
+    <div class="alert alert-danger fade in" style="text-align:center">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error!</strong> Invalid Username or Password!
+    </div>
+    {% endif %}
+  	<div class="panel panel-default">
+  		<div class="panel-body" style="background-color:#3F51B5; color:#E8EAF6; text-align:center;">Login</div>
+  			<div class="panel-footer">
+  				<div class="row">
+  					<div class="col-sm-3"></div>
+  					<div class="col-sm-6">
+				  		<form  action="{%  url 'cms:loginAuth'%}" method="POST" role="form">
+              {%  csrf_token %}
+				 	 		
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                 <input class="mdl-textfield__input" name="username" type="text" id="uname" />
+                 <label class="mdl-textfield__label" for="uname">Username</label>
+              </div>
+				  		
+              	<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                 <input class="mdl-textfield__input" name="password" type="password" id="pwd" />
+                 <label class="mdl-textfield__label" for="pwd">Password</label>
+              </div>
+				  			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked />
+                  <span class="mdl-checkbox__label">I agree to the terms of service.</span>
+                </label>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent login-button-custom" onclick="return validate()">
+                  Login
+                </button>
+
+						</form>
+					</div>
+					<div class="col-sm-3"></div>
+  				</div>
+  			</div>
+		</div>
+  	</div>
+  	<div class="col-sm-3"></div>
+</div>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Error!</h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal-body-content">Username Or password invalid !</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer--left-section">
+    <div class="mdl-logo">Designed and developed by <a href="#" target="_blank">Sharad Dargan</a></div>
+    <ul class="mdl-mini-footer--link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy &amp; Terms</a></li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>
